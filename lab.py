@@ -5,8 +5,6 @@ from constant import *
 from position import*
 pygame.init()
 
-
-
 fichier = "lab.txt"
 
 #ouverture de la fenetre pygame
@@ -23,9 +21,6 @@ fenetre.blit(wall,(0, 40))
 niveau = Niveau(fichier, fenetre)
 niveau.generer()
 niveau.display(fenetre)
-
-
-
 
 
 #objet
@@ -83,26 +78,34 @@ while continuer_jeu:
 	fenetre.blit(fond, (0, 0))
 	niveau.display(fenetre)
 	fenetre.blit(mac.sprite, (mac.x, mac.y))
+
 	
 	if TubeNotPicked:
 		fenetre.blit(tube.sprite, (tube.x, tube.y))
 	if (mac.x, mac.y) == (tube.x, tube.y):
 		TubeNotPicked = False
+	if TubeNotPicked == False:
+		tube.x, tube.y = 10, 0
 		fenetre.blit(tube.sprite, (10, 0))
+
 		
 	if NeedleNotPicked:
 		fenetre.blit(needle.sprite, (needle.x, needle.y))
 	if (mac.x, mac.y) == (needle.x, needle.y):
 		NeedleNotPicked = False
-		fenetre.blit(needle.sprite, (20, 0))
+	if NeedleNotPicked == False:
+		needle.x, needle.y = 30, 0
+		fenetre.blit(needle.sprite, (30, 0))
+
 		
 	if EtherNotPicked:
 		fenetre.blit(ether.sprite, (ether.x, ether.y))
 	if (mac.x, mac.y) == (ether.x, ether.y):
 		EtherNotPicked = False
-		fenetre.blit(ether.sprite, (0, 10))
+	if EtherNotPicked == False:
+		ether.x, ether.y = 50, 0
+		fenetre.blit(ether.sprite, (50, 0))
 	
-	pygame.display.flip()
 
 	#Endgame condition
 	if niveau.structure[mac.case_y][mac.case_x] == 'G': 
@@ -120,8 +123,6 @@ while continuer_jeu:
 		textrect.centerx, textrect.centery = cote / 2, cote / 2
 		fenetre.blit(text, textrect)
 
-	pygame.display.flip()
-	
 	
 	if GAME_LOOSE is True:
 		fenetre.blit(fond, (0, 0))
@@ -130,6 +131,3 @@ while continuer_jeu:
 		textrect = text.get_rect()
 		textrect.centerx, textrect.centery = cote / 2, cote / 2
 		fenetre.blit(text, textrect)
-		
-	pygame.display.flip()
-		
